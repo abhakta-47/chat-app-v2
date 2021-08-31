@@ -1,12 +1,15 @@
 import React from "react";
+
+import socket from "../utils/socket";
+
 interface msg {
   newMsg: string;
   creator: string;
   timeStamp: string;
 }
-function Message({ msg, socketId }: { msg: msg; socketId: string }) {
+function Message({ msg }: { msg: msg }) {
   const style = () => {
-    if (msg.creator == socketId)
+    if (msg.creator === socket.id)
       return "max-w-sm bg-blue-500 text-white mt-2 p-2 rounded-md rounded-tr21-none self-end";
 
     return "max-w-sm bg-purple-500 text-white mt-2 p-2 rounded-md rounded-tl-none";

@@ -1,4 +1,8 @@
+import { stat } from "fs";
 import React from "react";
+import { useSelector } from "react-redux";
+import store from "../store";
+
 import Message from "./Message";
 interface msg {
   newMsg: string;
@@ -6,11 +10,14 @@ interface msg {
   timeStamp: string;
 }
 
-function ChatArea({ msgs, socketId }: { msgs: [] | msg[]; socketId: string }) {
+function ChatArea() {
+  const msgs: [] | msg[] = useSelector(
+    (state: { message: msg[] }) => state.message
+  );
   return (
     <div className="flex flex-col flex-grow p-2">
       {msgs.map((msg) => (
-        <Message msg={msg} socketId={socketId} />
+        <Message key={msg.timeStamp} msg={msg} />
       ))}
     </div>
   );

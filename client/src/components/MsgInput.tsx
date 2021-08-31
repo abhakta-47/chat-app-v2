@@ -1,6 +1,11 @@
 import React from "react";
 import { useState } from "react";
 
+import { useDispatch } from "react-redux";
+import { sendMessage } from "../reducers/mesageReducer";
+
+import socket from "../utils/socket";
+
 const curTime = () => {
   const today = new Date();
   const date =
@@ -10,14 +15,11 @@ const curTime = () => {
   const dateTime = date + " " + time;
   return dateTime;
 };
-interface msg {
-  newMsg: string;
-  creator: string;
-  timeStamp: string;
-}
 
-function MsgInput({ socket, addOwnMsg }: any) {
+function MsgInput({ addOwnMsg }: any) {
   const [msgTxt, updateMsgTxt] = useState("");
+
+  const dispatch = useDispatch();
 
   const sendHandler = () => {
     const newMsg: msg = {
@@ -26,7 +28,8 @@ function MsgInput({ socket, addOwnMsg }: any) {
       timeStamp: curTime(),
     };
     socket.emit("new-msg", newMsg);
-    addOwnMsg(newMsg);
+    // addOwnMsg(newMsg);
+    dispatch(sendMessage(newMsg));
   };
 
   return (

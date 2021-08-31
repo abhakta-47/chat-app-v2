@@ -15,7 +15,7 @@ io.on("connection", (socket) => {
   // console.log(socket)
   console.log("new user connected");
   socket.on("new-msg", (payload) => {
-    console.log("new message : ", payload);
+    // console.log("new message : ", payload);
     socket.broadcast.emit("receive-msg", payload);
   });
 });
