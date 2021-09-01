@@ -1,29 +1,10 @@
-import React, { useState } from "react";
-import { Provider } from "react-redux";
+import React from "react";
 
-import socket from "./utils/socket";
-
+import RoomSelector from "./components/RoomSelector";
 import ChatArea from "./components/ChatArea";
 import MsgInput from "./components/MsgInput";
-import Message from "./components/Message";
-
-interface msg {
-  newMsg: string;
-  creator: string;
-  timeStamp: string;
-}
 
 function App() {
-  const [msgs, updateMsgs] = useState<msg[] | []>([]);
-
-  // socket.on("receive-msg", (payLoad: msg) => {
-  //   console.log(payLoad);
-  //   updateMsgs([...msgs, payLoad]);
-  // });
-  const addOwnMsg = (newMsg: msg) => {
-    updateMsgs([...msgs, newMsg]);
-  };
-
   return (
     <div
       className="App flex flex-col bg-white"
@@ -32,8 +13,13 @@ function App() {
       <header className="text-white bg-blue-600 p-3 px-5">
         Simple Chat App
       </header>
-      <ChatArea />
-      <MsgInput addOwnMsg={addOwnMsg} />
+      <div className="flex h-full">
+        <RoomSelector />
+        <div className="flex-grow flex flex-col">
+          <ChatArea />
+          <MsgInput />
+        </div>
+      </div>
     </div>
   );
 }

@@ -14,9 +14,12 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   // console.log(socket)
   console.log("new user connected");
-  socket.on("new-msg", (payload) => {
-    // console.log("new message : ", payload);
-    socket.broadcast.emit("receive-msg", payload);
+  socket.on("join-room", (payLoad) => {
+    socket.join(payLoad.room);
+    console.log(socket.id, "joined room", payLoad.room);
+  });
+  socket.on("new-msg", (payLoad) => {
+    socket.broadcast.to(payLoad.to).emit("receive-msg", payLoad);
   });
 });
 

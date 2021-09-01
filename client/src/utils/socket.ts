@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-import { sendMessage, recieveMessage } from "../reducers/mesageReducer";
+import { recieveMessage } from "../reducers/mesageReducer";
 import store from "../store";
 
 const socket = io();

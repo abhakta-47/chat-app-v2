@@ -4,32 +4,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { sendMessage } from "../reducers/mesageReducer";
 
-import socket from "../utils/socket";
-
-const curTime = () => {
-  const today = new Date();
-  const date =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  const time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  const dateTime = date + " " + time;
-  return dateTime;
-};
-
-function MsgInput({ addOwnMsg }: any) {
+function MsgInput() {
   const [msgTxt, updateMsgTxt] = useState("");
 
   const dispatch = useDispatch();
 
   const sendHandler = () => {
-    const newMsg: msg = {
-      newMsg: msgTxt,
-      creator: socket.id,
-      timeStamp: curTime(),
-    };
-    socket.emit("new-msg", newMsg);
-    // addOwnMsg(newMsg);
-    dispatch(sendMessage(newMsg));
+    dispatch(sendMessage(msgTxt));
   };
 
   return (
