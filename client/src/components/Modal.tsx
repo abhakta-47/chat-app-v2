@@ -2,14 +2,13 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch } from "react-redux";
-import { joinRoom } from "../reducers/mesageReducer";
-// import { ExclamationIcon } from "@heroicons/react/outline";
+import { joinRoom } from "../reducers/mesageSlice";
 
 export default function Modal({ open, setOpen }: any) {
   const [room, setRoom] = useState({ roomId: "" });
   const dispatch = useDispatch();
   const joinRoomHandler = () => {
-    dispatch({ type: "JOIN_ROOM", payLoad: { roomId: room.roomId } });
+    dispatch(joinRoom(room.roomId));
     setOpen(false);
   };
 

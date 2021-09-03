@@ -1,10 +1,8 @@
 import React from "react";
 
-import socket from "../utils/socket";
-
 function Message({ msg }: { msg: msg }) {
   const style = () => {
-    if (msg.from === socket.id)
+    if (msg.from === "tst")
       return "max-w-sm bg-blue-500 text-white mt-2 p-2 rounded-md rounded-tr21-none self-end";
 
     return "max-w-sm bg-purple-500 text-white mt-2 p-2 rounded-md rounded-tl-none";

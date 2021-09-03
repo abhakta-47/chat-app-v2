@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-import { setRoom } from "../reducers/mesageReducer";
+import { setCurRoom } from "../reducers/mesageSlice";
 import Modal from "./Modal";
 
 function Room({ room }: { room: room }) {
   const dispatch = useDispatch();
   const currentRoom = useSelector((state: any) => state.message.currentRoom);
+
   const selectRoom = () => {
-    const roomId = room.id;
-    console.log(roomId);
-    dispatch({
-      type: "SET_CUR_ROOM",
-      payLoad: { roomId: roomId },
-    });
+    dispatch(setCurRoom(room.id));
   };
+
   return (
     <div
-      key={room.id}
       className={`text-white pl-2 w-full ${
         room.id === currentRoom ? "bg-blue-600" : ""
       }`}
@@ -28,6 +23,7 @@ function Room({ room }: { room: room }) {
     </div>
   );
 }
+
 function RoomSelector() {
   const rooms: room[] = useSelector(
     (state: { message: state }) => state.message.rooms
@@ -36,10 +32,10 @@ function RoomSelector() {
   return (
     <div className="flex flex-col items-center w-20 bg-blue-400 text-white">
       {rooms.map((room) => (
-        <Room room={room} />
+        <Room key={room.id} room={room} />
       ))}
       <div
-        className="bg-blue-400 w-full mt-auto pl-auto"
+        className="bg-blue-400 w-full mt-auto pl-auto "
         onClick={() => setModal(true)}
       >
         +

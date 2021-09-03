@@ -13,6 +13,9 @@ function App() {
       <header className="text-white bg-blue-600 p-3 px-5">
         Simple Chat App
       </header>
+      {/* <button onClick={() => dispatch(sendMessage({ id: "04", messages: [] }))}>
+        buttom
+      </button> */}
       <div className="flex h-full">
         <RoomSelector />
         <div className="flex-grow flex flex-col">

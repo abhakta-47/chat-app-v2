@@ -1,16 +1,17 @@
 import React from "react";
 import { useState } from "react";
 
-import { useDispatch } from "react-redux";
-import { sendMessage } from "../reducers/mesageReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { sendMessage } from "../reducers/mesageSlice";
 
 function MsgInput() {
   const [msgTxt, updateMsgTxt] = useState("");
-
+  const curRoom = useSelector((state: any) => state.message.currentRoom);
   const dispatch = useDispatch();
 
   const sendHandler = () => {
-    dispatch(sendMessage(msgTxt));
+    console.log("dis send ", msgTxt);
+    dispatch(sendMessage({ content: msgTxt, to: curRoom }));
   };
 
   return (
