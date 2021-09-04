@@ -10,6 +10,8 @@ export const socketInit =
         socket.emit("join-room", { room: action.payload.id });
         break;
       case "chat/sendMessage":
+        const user = storeAPI.getState().user;
+        action.payload.from = { name: user.name, id: user.id };
         socket.emit("new-msg", action.payload);
         break;
       default:

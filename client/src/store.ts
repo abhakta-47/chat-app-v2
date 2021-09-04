@@ -6,7 +6,7 @@ import { socketInit } from "./reduxSocketMiddleWare";
 
 import socket from "./utils/socket";
 
-const reducer = { user: userReducer, chats: chatReducer };
+const reducer = { user: userReducer, message: chatReducer };
 
 // const socket = io();
 let savedData = localStorage.getItem("state");

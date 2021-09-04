@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 function Message({ msg }: { msg: msg }) {
   // const user = useSelector((state: any) => state.user);
@@ -14,7 +14,7 @@ function Message({ msg }: { msg: msg }) {
     <div className={style()}>
       <div className="msg-content ">{msg.content}</div>
       <span className="flex justify-end text-xs text-gray-300">
-        <div className="msg-creator mr-1">{msg.from}</div>
+        <div className="msg-creator mr-1">{msg.from.name}</div>
         <div className="msg-timestamp">{msg.timeStamp}</div>
       </span>
     </div>
