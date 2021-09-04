@@ -3,7 +3,10 @@ import { io } from "socket.io-client";
 import store from "../store";
 import { recieveMessage } from "../reducers/mesageSlice";
 
-const BACKEND_SERVER = process.env.BACKEND_SERVER || "http://localhost:5000";
+console.log("prc envs", process.env);
+
+const BACKEND_SERVER =
+  "https://chat-app-v2-back.herokuapp.com/" || "http://localhost:5000";
 
 const socket = io(BACKEND_SERVER, {
   transports: ["websocket", "polling", "flashsocket"],
