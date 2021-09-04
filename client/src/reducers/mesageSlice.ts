@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import curTime from "../utils/date";
-
+import store from "../store";
 const initialStateChat: state = {
   currentRoom: "",
   rooms: [],
@@ -37,10 +37,11 @@ const chatSlice = createSlice({
         state.rooms[0].messages.push(action.payload);
       },
       prepare: (msgTxt: any) => {
+        const user: user = store.getState().user;
         return {
           payload: {
             content: msgTxt.content,
-            from: "me",
+            from: { name: user.name, id: user.id },
             to: msgTxt.to,
             timeStamp: curTime(),
           },

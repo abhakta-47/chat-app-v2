@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: user = {
   name: "no-init",
@@ -10,8 +10,21 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    initUser: (state, action) => {
-      state = action.payload.user;
+    initUser: {
+      reducer: (state, action: PayloadAction<user>) => {
+        console.log(action.payload);
+        // state = { ...action.payload };
+        return { ...action.payload };
+      },
+      prepare: (userName) => {
+        return {
+          payload: {
+            name: userName,
+            id: "kkkkkkkId",
+            publicKey: "strogestKey",
+          },
+        };
+      },
     },
     setName: (state, action) => {
       state.name = action.payload.name;

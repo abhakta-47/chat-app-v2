@@ -1,6 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { io } from "socket.io-client";
-
 import chatReducer from "./reducers/mesageSlice";
 import userReducer from "./reducers/userSlice";
 
@@ -8,16 +6,17 @@ import { socketInit } from "./reduxSocketMiddleWare";
 
 import socket from "./utils/socket";
 
-const reducer = { user: userReducer, message: chatReducer };
+const reducer = { user: userReducer, chats: chatReducer };
 
 // const socket = io();
 let savedData = localStorage.getItem("state");
 let preloadedState: any;
 if (savedData) {
   preloadedState = JSON.parse(savedData);
-  preloadedState.message.rooms.forEach((room: room) =>
-    socket.emit("join-room", { room: room.id })
-  );
+  if (preloadedState.message)
+    preloadedState.message.rooms.forEach((room: room) =>
+      socket.emit("join-room", { room: room.id })
+    );
   console.log("state load done");
 }
 

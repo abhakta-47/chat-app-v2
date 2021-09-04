@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 function Message({ msg }: { msg: msg }) {
+  // const user = useSelector((state: any) => state.user);
   const style = () => {
-    if (msg.from === "tst")
+    if (msg.from.id === "test")
       return "max-w-sm bg-blue-500 text-white mt-2 p-2 rounded-md rounded-tr21-none self-end";
 
     return "max-w-sm bg-purple-500 text-white mt-2 p-2 rounded-md rounded-tl-none";

@@ -1,6 +1,6 @@
 interface msg {
   content: string;
-  from: string;
+  from: user;
   to: string;
   timeStamp: string;
 }
