@@ -13,7 +13,7 @@ function Room({ room }: { room: room }) {
 
   return (
     <div
-      className={`text-white pl-2 w-full ${
+      className={`cursor-pointer text-white pl-2 w-full ${
         room.id === currentRoom ? "bg-blue-600" : ""
       }`}
       id={room.id}
@@ -35,7 +35,7 @@ function RoomSelector() {
         <Room key={room.id} room={room} />
       ))}
       <div
-        className="bg-blue-400 w-full mt-auto pl-auto "
+        className="bg-blue-600 w-full mt-auto pl-auto cursor-pointer text-center"
         onClick={() => setModal(true)}
       >
         +

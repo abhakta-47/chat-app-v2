@@ -34,7 +34,10 @@ const chatSlice = createSlice({
     sendMessage: {
       reducer: (state: any, action: PayloadAction<msg>) => {
         // action.payload.to = state.currentRoom;
-        state.rooms[0].messages.push(action.payload);
+        const roomIndex: number = state.rooms.findIndex((room: room) => {
+          return room.id === action.payload.to;
+        });
+        state.rooms[roomIndex].messages.push(action.payload);
       },
       prepare: (msgTxt: any) => {
         // const user: user = store.getState().user;
@@ -49,11 +52,10 @@ const chatSlice = createSlice({
       },
     },
     recieveMessage: (state, action) => {
-      // state.rooms[0].messages.push(action.payload);
-      const room: room[] = state.rooms.filter((room) => {
+      const roomIndex: number = state.rooms.findIndex((room: room) => {
         return room.id === action.payload.to;
       });
-      if (room.length === 1) room[0].messages.push(action.payload);
+      state.rooms[roomIndex].messages.push(action.payload);
     },
   },
 });

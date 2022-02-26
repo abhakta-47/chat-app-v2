@@ -64,7 +64,7 @@ export default function Modal({ open, setOpen }: any) {
                       Join Room
                     </Dialog.Title>
                     <div className="mt-2">
-                      <label htmlFor="roomId">roomId</label>
+                      <label htmlFor="roomId">roomId </label>
                       <input
                         type="text"
                         name="roomId"
