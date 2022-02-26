@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "development")
   BACKEND_SERVER = "http://localhost:5000";
 else BACKEND_SERVER = "https://chat-app-v2-back.herokuapp.com/";
 
-const socket = io(BACKEND_SERVER, {
+const socket = io("/", {
   transports: ["websocket", "polling", "flashsocket"],
 });
 socket.on("receive-msg", (payload: any) => {

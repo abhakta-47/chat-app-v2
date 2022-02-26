@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const http = require("http");
 const cors = require("cors");
+const { constants } = require("buffer");
 
 const server = http.createServer(app);
 
@@ -11,9 +13,7 @@ const io = require("./utils/socket")(server);
 
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
+app.use("/", express.static(path.join(__dirname, "client", "build")));
 
 server.listen(PORT, () => {
   console.log("server started at ", PORT);
