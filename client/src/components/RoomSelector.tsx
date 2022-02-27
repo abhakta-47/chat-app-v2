@@ -13,7 +13,7 @@ function Room({ room }: { room: room }) {
 
   return (
     <div
-      className={`cursor-pointer text-white pl-2 w-full ${
+      className={`mt-1 mx-2 py-1 px-2 cursor-pointer text-white w-full rounded ${
         room.id === currentRoom ? "bg-blue-600" : ""
       }`}
       id={room.id}
@@ -30,10 +30,12 @@ function RoomSelector() {
   );
   const [modalOpen, setModal] = useState(false);
   return (
-    <div className="flex flex-col items-center w-20 bg-blue-400 text-white">
-      {rooms.map((room) => (
-        <Room key={room.id} room={room} />
-      ))}
+    <div className="flex flex-col items-center w-28 bg-blue-400 text-white">
+      <div className="flex flex-col items-center w-full px-2">
+        {rooms.map((room) => (
+          <Room key={room.id} room={room} />
+        ))}
+      </div>
       <div
         className="bg-blue-600 w-full mt-auto pl-auto cursor-pointer text-center"
         onClick={() => setModal(true)}

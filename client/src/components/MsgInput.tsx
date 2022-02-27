@@ -17,6 +17,7 @@ function MsgInput() {
   return (
     <div className="flex items-center justify-center p-2">
       <input
+        autoFocus
         className="mx-2 flex-grow p-2 bg-gray-200"
         type="text"
         name="message"

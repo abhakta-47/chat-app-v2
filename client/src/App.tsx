@@ -11,17 +11,25 @@ function App() {
   const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   const [userName, setUser] = useState("");
+  const handleKeyDown = (e: { key: string; any?: any }) => {
+    if (e.key === "Enter") {
+      dispatch(initUser(userName));
+    }
+  };
   // console.log(user);
   const initContent = (
     <div className="mt-2 flex justify-center">
       <input
+        autoFocus
         value={userName}
         className="bg-gray-100 h-full mx-2"
         onChange={(e) => setUser(e.target.value)}
+        onKeyDown={(e) => handleKeyDown(e)}
         type="text"
+        id="userNameInput"
       />
       <button
-        className="bg-blue-600 text-white px-3 py-1"
+        className="bg-green-600 text-white px-3 py-1"
         onClick={(e) => dispatch(initUser(userName))}
       >
         save
@@ -29,7 +37,7 @@ function App() {
     </div>
   );
   const userContent = (
-    <div className="flex h-full">
+    <div className="flex flex-grow min-h-0">
       <RoomSelector />
       <div className="flex-grow flex flex-col">
         <ChatArea />
@@ -48,9 +56,9 @@ function App() {
   return (
     <div
       className="App flex flex-col bg-white"
-      style={{ height: "90vh", width: "500px" }}
+      style={{ height: "100vh", maxHeight: "1000px", width: "500px" }}
     >
-      <header className="text-lg text-white bg-blue-600 p-3 px-5">
+      <header className="text-xl text-white bg-blue-600 p-3 px-5">
         React Chat App
       </header>
       {actualContent()}

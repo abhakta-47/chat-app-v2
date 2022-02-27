@@ -3,11 +3,12 @@ import React from "react";
 
 function Message({ msg }: { msg: msg }) {
   // const user = useSelector((state: any) => state.user);
+  const commonStyle = "w-max text-white mt-2 p-2 rounded-md ";
   const style = () => {
     if (msg.type === "self")
-      return "max-w-sm bg-blue-500 text-white mt-2 p-2 rounded-md rounded-tr21-none self-end";
+      return commonStyle + "bg-blue-500 rounded-tr21-none self-end";
 
-    return "max-w-sm bg-purple-500 text-white mt-2 p-2 rounded-md rounded-tl-none";
+    return commonStyle + "bg-purple-500 rounded-tl-none";
   };
 
   const createMsgElement = (msg: msg) => {
