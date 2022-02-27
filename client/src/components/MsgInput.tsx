@@ -10,7 +10,7 @@ function MsgInput() {
   const dispatch = useDispatch();
 
   const sendHandler = () => {
-    console.log("dis send ", msgTxt);
+    // console.log("dis send ", msgTxt);
     dispatch(sendMessage({ content: msgTxt, to: curRoom }));
   };
 

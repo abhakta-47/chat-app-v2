@@ -5,19 +5,24 @@ import userReducer from "./reducers/userSlice";
 import { socketInit } from "./reduxSocketMiddleWare";
 
 import socket from "./utils/socket";
+import { loadState, saveState } from "./utils/reduxSaveState";
 
 const reducer = { user: userReducer, message: chatReducer };
 
 // const socket = io();
-let savedData = localStorage.getItem("state");
-let preloadedState: any;
-if (savedData) {
-  preloadedState = JSON.parse(savedData);
+let preloadedState: any = loadState();
+if (preloadedState) {
   if (preloadedState.message)
     preloadedState.message.rooms.forEach((room: room) =>
-      socket.emit("join-room", { room: room.id })
+      socket.emit("join-room", {
+        room: room.id,
+        userName: preloadedState.user.name,
+        userId: preloadedState.user.id,
+      })
     );
-  console.log("state load done");
+  // if(preloadedState.user)
+
+  // console.log("state load done");
 }
 
 const store = configureStore({
@@ -29,10 +34,7 @@ const store = configureStore({
 });
 
 store.subscribe(() => {
-  // console.log("saving..");
-  // const curState = store.getState();
-  localStorage.setItem("state", JSON.stringify(store.getState()));
-  console.log("saving done");
+  saveState(store.getState());
 });
 
 export default store;

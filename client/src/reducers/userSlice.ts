@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 
 const initialState: user = {
   name: "no-init",
@@ -29,9 +30,12 @@ const userSlice = createSlice({
     setName: (state, action) => {
       state.name = action.payload.name;
     },
+    setUser: (state, action) => {
+      state = action.payload;
+    },
   },
 });
 
-console.log("userSlice", userSlice);
+// console.log("userSlice", userSlice);
 export const { initUser, setName } = userSlice.actions;
 export default userSlice.reducer;

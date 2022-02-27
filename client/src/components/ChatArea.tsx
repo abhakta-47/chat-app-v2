@@ -11,7 +11,7 @@ function ChatArea() {
     else return [];
   });
   return (
-    <div className="flex flex-col flex-grow p-2">
+    <div className="flex flex-col flex-grow p-2 overflow-y-auto">
       {msgs.map((msg) => (
         <Message key={msg.timeStamp} msg={msg} />
       ))}

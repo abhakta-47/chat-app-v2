@@ -3,6 +3,7 @@ interface msg {
   from: user;
   to: string;
   timeStamp: string;
+  type: "self" | "bot" | "peer";
 }
 interface room {
   name: string;

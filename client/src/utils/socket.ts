@@ -1,19 +1,22 @@
 import { io } from "socket.io-client";
 
 import store from "../store";
-import { recieveMessage } from "../reducers/mesageSlice";
+import { recieveMessage, welcomePeer } from "../reducers/mesageSlice";
 
 // console.log("prc envs", process.env);
 let BACKEND_SERVER: string = "";
 if (process.env.NODE_ENV === "development")
   BACKEND_SERVER = "http://localhost:5000";
-else BACKEND_SERVER = "https://chat-app-v2-back.herokuapp.com/";
+else BACKEND_SERVER = "/";
 
-const socket = io("/", {
+const socket = io(BACKEND_SERVER, {
   transports: ["websocket", "polling", "flashsocket"],
 });
 socket.on("receive-msg", (payload: any) => {
   store.dispatch(recieveMessage(payload));
 });
-console.log("called");
+socket.on("new-peer", (payload: any) => {
+  store.dispatch(welcomePeer(payload));
+});
+// console.log("called");
 export default socket;

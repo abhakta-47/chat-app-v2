@@ -13,8 +13,6 @@ const chatSlice = createSlice({
   reducers: {
     joinRoom: {
       reducer: (state, action: PayloadAction<room>) => {
-        // console.log(state);
-        // state.socket.emit("join-room", { room: action.payload.id });
         state.rooms.push(action.payload);
       },
       prepare: (roomId: string) => {
@@ -37,17 +35,20 @@ const chatSlice = createSlice({
         const roomIndex: number = state.rooms.findIndex((room: room) => {
           return room.id === action.payload.to;
         });
+        action.payload.type = "self";
         state.rooms[roomIndex].messages.push(action.payload);
       },
-      prepare: (msgTxt: any) => {
+      prepare: (msgTxt: { content: string; to: string }) => {
         // const user: user = store.getState().user;
+        let msgPayload: msg = {
+          content: msgTxt.content,
+          from: { name: "user.name", id: "user.id" },
+          to: msgTxt.to,
+          timeStamp: curTime(),
+          type: "self",
+        };
         return {
-          payload: {
-            content: msgTxt.content,
-            from: { name: "user.name", id: "user.id" },
-            to: msgTxt.to,
-            timeStamp: curTime(),
-          },
+          payload: msgPayload,
         };
       },
     },
@@ -57,10 +58,28 @@ const chatSlice = createSlice({
       });
       state.rooms[roomIndex].messages.push(action.payload);
     },
+    welcomePeer: (state, action) => {
+      const roomIndex: number = state.rooms.findIndex((room: room) => {
+        return room.id === action.payload.room;
+      });
+      let welcomeMsg: msg = {
+        content: action.payload.userName + " joined",
+        from: { name: action.payload.userName },
+        to: action.payload.room,
+        timeStamp: curTime(),
+        type: "bot",
+      };
+      state.rooms[roomIndex].messages.push(welcomeMsg);
+    },
   },
 });
 
-export const { joinRoom, setCurRoom, sendMessage, recieveMessage } =
-  chatSlice.actions;
+export const {
+  joinRoom,
+  setCurRoom,
+  sendMessage,
+  recieveMessage,
+  welcomePeer,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

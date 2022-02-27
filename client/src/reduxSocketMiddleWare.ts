@@ -1,17 +1,26 @@
 export const socketInit =
   (socket: any) => (storeAPI: any) => (next: any) => (action: any) => {
-    // console.log("socket-mid-ware", socket);
-    // console.log("action", action);
-    // console.log("storeapi", storeAPI);
-    // if (action.type === "chat/joinRoom")
-    // socket.emit("join-room", { room: action.payload.id });
+    const getUser = (): user => {
+      // console.log("user state got");
+      return storeAPI.getState().user;
+    };
+    let userState: user;
     switch (action.type) {
       case "chat/joinRoom":
-        socket.emit("join-room", { room: action.payload.id });
+        userState = getUser();
+        socket.emit("join-room", {
+          room: action.payload.id,
+          userName: userState.name,
+          userId: userState.id,
+        });
         break;
       case "chat/sendMessage":
-        const user = storeAPI.getState().user;
-        action.payload.from = { name: user.name, id: user.id };
+        // console.log("send msg middle war");
+        userState = getUser();
+        action.payload.from = { name: userState.name, id: userState.id };
+        let msgPayload: msg = action.payload;
+        msgPayload.type = "peer";
+        // console.log(msgPayload);
         socket.emit("new-msg", action.payload);
         break;
       default:
