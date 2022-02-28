@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import chatReducer from "./reducers/mesageSlice";
 import userReducer from "./reducers/userSlice";
 
+import { setBrowserDB } from "./utils/indexedDB";
 import socket, { socketMiddleware } from "./utils/socket";
 import { userMiddleware } from "./utils/userMiddleWare";
 import { loadState, saveState } from "./utils/reduxSaveState";
@@ -23,6 +24,8 @@ if (preloadedState) {
 
   // console.log("state load done");
 }
+
+setBrowserDB();
 
 const store = configureStore({
   reducer,

@@ -2,13 +2,19 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch } from "react-redux";
-import { joinRoom } from "../reducers/mesageSlice";
+import { joinRoom, createRoom } from "../reducers/mesageSlice";
 
 export default function Modal({ open, setOpen }: any) {
-  const [room, setRoom] = useState({ roomId: "" });
+  const [roomId, setRoomId] = useState("");
+  const [roomName, setRoomName] = useState("");
+  const [roomKey, setRoomKey] = useState("");
   const dispatch = useDispatch();
   const joinRoomHandler = () => {
-    dispatch(joinRoom(room.roomId));
+    dispatch(joinRoom(roomName, roomId, roomKey));
+    setOpen(false);
+  };
+  const createRoomHandler = () => {
+    dispatch(createRoom(roomName, roomKey));
     setOpen(false);
   };
 
@@ -62,6 +68,18 @@ export default function Modal({ open, setOpen }: any) {
                       Join Room
                     </Dialog.Title>
                     <div className="mt-2">
+                      <label htmlFor="roomId">Room Name : </label>
+                      <input
+                        ref={roomInputRef}
+                        type="text"
+                        name="roomName"
+                        className="bg-gray-200 pl-1"
+                        onChange={(e) => {
+                          setRoomName(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="mt-2">
                       <label htmlFor="roomId">Room ID : </label>
                       <input
                         ref={roomInputRef}
@@ -69,7 +87,19 @@ export default function Modal({ open, setOpen }: any) {
                         name="roomId"
                         className="bg-gray-200 pl-1"
                         onChange={(e) => {
-                          setRoom({ roomId: e.target.value });
+                          setRoomId(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="mt-2">
+                      <label htmlFor="roomKey">Pass Key : </label>
+                      <input
+                        ref={roomInputRef}
+                        type="text"
+                        name="roomKey"
+                        className="bg-gray-200 pl-1"
+                        onChange={(e) => {
+                          setRoomKey(e.target.value);
                         }}
                       />
                     </div>
@@ -83,6 +113,13 @@ export default function Modal({ open, setOpen }: any) {
                   onClick={joinRoomHandler}
                 >
                   Join
+                </button>
+                <button
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={createRoomHandler}
+                >
+                  Create
                 </button>
                 <button
                   type="button"

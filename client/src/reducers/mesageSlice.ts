@@ -15,11 +15,27 @@ const chatSlice = createSlice({
       reducer: (state, action: PayloadAction<room>) => {
         state.rooms.push(action.payload);
       },
-      prepare: (roomId: string) => {
+      prepare: (roomName: string, roomId: string, roomKey: string) => {
         return {
           payload: {
             id: roomId,
-            name: roomId,
+            name: roomName,
+            symmetricKey: roomKey,
+            messages: [],
+          },
+        };
+      },
+    },
+    createRoom: {
+      reducer: (state, action: PayloadAction<room>) => {
+        state.rooms.push(action.payload);
+      },
+      prepare: (roomName: string, roomKey: string) => {
+        return {
+          payload: {
+            id: "",
+            name: roomName,
+            symmetricKey: roomKey,
             messages: [],
           },
         };
@@ -76,6 +92,7 @@ const chatSlice = createSlice({
 
 export const {
   joinRoom,
+  createRoom,
   setCurRoom,
   sendMessage,
   recieveMessage,

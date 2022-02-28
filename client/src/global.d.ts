@@ -10,8 +10,7 @@ interface room {
   id: string;
   messages: msg[];
   users?: [];
-  publicKey?: string;
-  privateKey?: string;
+  symmetricKey: CryptoKey | string;
 }
 
 interface user {
@@ -20,6 +19,7 @@ interface user {
   publicKey?: string;
   privateKey?: string;
   keypair?: CryptoKeyPair;
+  symmetricKey?: CryptoKey;
 }
 
 interface state {

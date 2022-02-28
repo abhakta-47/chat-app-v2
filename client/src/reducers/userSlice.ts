@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { genaerateKeyPair } from "../utils/crypto/rsa";
 
 const initUserObj = (): user => {
   let emptyUser: user = {
@@ -17,8 +16,7 @@ const userSlice = createSlice({
   reducers: {
     initUser: {
       reducer: (state, action: PayloadAction<user>) => {
-        console.log(action.payload);
-        // state = { ...action.payload };
+        // console.log(action.payload);
         return { ...action.payload };
       },
       prepare: (userName) => {
@@ -33,7 +31,7 @@ const userSlice = createSlice({
       state.name = action.payload.name;
     },
     setUser: (state, action) => {
-      state = action.payload;
+      return action.payload;
     },
   },
 });
