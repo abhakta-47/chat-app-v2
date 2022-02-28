@@ -2,9 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import chatReducer from "./reducers/mesageSlice";
 import userReducer from "./reducers/userSlice";
 
-import { socketInit } from "./reduxSocketMiddleWare";
-
-import socket from "./utils/socket";
+import socket, { socketMiddleware } from "./utils/socket";
 import { loadState, saveState } from "./utils/reduxSaveState";
 
 const reducer = { user: userReducer, message: chatReducer };
@@ -28,7 +26,7 @@ if (preloadedState) {
 const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(socketInit(socket)),
+    getDefaultMiddleware().concat(socketMiddleware(socket)),
   devTools: process.env.NODE_ENV !== "production",
   preloadedState,
 });
