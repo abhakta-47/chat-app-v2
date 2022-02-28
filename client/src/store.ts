@@ -3,6 +3,7 @@ import chatReducer from "./reducers/mesageSlice";
 import userReducer from "./reducers/userSlice";
 
 import socket, { socketMiddleware } from "./utils/socket";
+import { userMiddleware } from "./utils/userMiddleWare";
 import { loadState, saveState } from "./utils/reduxSaveState";
 
 const reducer = { user: userReducer, message: chatReducer };
@@ -26,7 +27,9 @@ if (preloadedState) {
 const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(socketMiddleware(socket)),
+    getDefaultMiddleware()
+      .concat(userMiddleware)
+      .concat(socketMiddleware(socket)),
   devTools: process.env.NODE_ENV !== "production",
   preloadedState,
 });

@@ -19,6 +19,7 @@ interface user {
   id?: string;
   publicKey?: string;
   privateKey?: string;
+  keypair?: CryptoKeyPair;
 }
 
 interface state {

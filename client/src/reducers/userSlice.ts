@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
+import { genaerateKeyPair } from "../utils/crypto/rsa";
 
-const initialState: user = {
-  name: "no-init",
-  id: "no-init",
-  publicKey: "no-init",
+const initUserObj = (): user => {
+  let emptyUser: user = {
+    name: "no-init",
+    id: "no-init",
+    publicKey: "no-init",
+  };
+  return emptyUser;
 };
 
+const initialState: user = initUserObj();
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -21,8 +25,6 @@ const userSlice = createSlice({
         return {
           payload: {
             name: userName,
-            id: "kkkkkkkId",
-            publicKey: "strogestKey",
           },
         };
       },
