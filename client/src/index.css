@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.App {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+  width: 500px;
+  max-height: 1000px;
+}
+
+/* @media screen and (max-width: 600px) {
+  .App {
+    width: 100vw;
+  }
+  .room-col {
+    display: none;
+    position: absolute;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+} */

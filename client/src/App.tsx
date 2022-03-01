@@ -54,11 +54,8 @@ function App() {
   };
 
   return (
-    <div
-      className="App flex flex-col bg-white"
-      style={{ height: "100vh", maxHeight: "1000px", width: "500px" }}
-    >
-      <header className="text-xl text-white bg-blue-600 p-3 px-5">
+    <div className="App flex flex-col bg-white mx-auto my-auto">
+      <header className="text-xl text-white bg-blue-600 py-3 pl-2 px-5 flex">
         React Chat App
       </header>
       {actualContent()}

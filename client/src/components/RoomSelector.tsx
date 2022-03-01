@@ -32,7 +32,7 @@ function RoomSelector() {
   const [joinModalOpen, setJoinModal] = useState(false);
   const [createModalOpen, setCreateModal] = useState(false);
   return (
-    <div className="flex flex-col items-center w-28 bg-blue-400 text-white">
+    <div className="room-col flex flex-col items-center w-28 bg-blue-400 text-white">
       <div className="flex flex-col items-center w-full px-2">
         {rooms.map((room) => (
           <Room key={room.id} room={room} />
