@@ -19,6 +19,7 @@ const setBrowserDB = () => {
       let objectStore = db.createObjectStore("passkeys", {
         keyPath: "room_id",
       });
+      console.log(objectStore);
     }
     // console.log("db upgraded");
   };

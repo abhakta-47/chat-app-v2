@@ -1,12 +1,11 @@
-// import { genaerateKeyPair } from "../utils/crypto/rsa";
 import { genUUID } from "../utils/crypto/pbkdf2";
 
 export const userMiddleware =
   (storeAPI: any) => (next: any) => (action: any) => {
-    const getUser = (): user => {
-      // console.log("user state got");
-      return storeAPI.getState().user;
-    };
+    // const getUser = (): user => {
+    //   // console.log("user state got");
+    //   return storeAPI.getState().user;
+    // };
     let userState: user;
     switch (action.type) {
       case "user/initUser":
