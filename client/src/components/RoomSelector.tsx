@@ -3,11 +3,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurRoom } from "../reducers/mesageSlice";
 import { CreateRoomModal, JoinRoomModal } from "./Modal";
 
-function Room({ room }: { room: room }) {
+function Room({
+  room,
+  setShowMenu,
+}: {
+  room: room;
+  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const dispatch = useDispatch();
   const currentRoom = useSelector((state: any) => state.message.currentRoom);
 
   const selectRoom = () => {
+    setShowMenu(false);
     dispatch(setCurRoom(room.id));
   };
 
@@ -24,7 +31,11 @@ function Room({ room }: { room: room }) {
   );
 }
 
-function RoomSelector() {
+function RoomSelector({
+  setShowMenu,
+}: {
+  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const rooms: room[] = useSelector(
     (state: { message: state }) => state.message.rooms
   );
@@ -32,10 +43,10 @@ function RoomSelector() {
   const [joinModalOpen, setJoinModal] = useState(false);
   const [createModalOpen, setCreateModal] = useState(false);
   return (
-    <div className="room-col flex flex-col items-center w-28 bg-blue-400 text-white">
+    <div className="h-full w-full flex flex-col items-center bg-blue-400 text-white">
       <div className="flex flex-col items-center w-full px-2">
         {rooms.map((room) => (
-          <Room key={room.id} room={room} />
+          <Room key={room.id} room={room} setShowMenu={setShowMenu} />
         ))}
       </div>
       {roomButtons ? (
@@ -67,7 +78,7 @@ function RoomSelector() {
         </div>
       ) : (
         <div
-          className="bg-blue-600 w-full mt-auto pl-auto cursor-pointer text-center"
+          className="bg-blue-600 w-full mt-auto pl-auto py-1 cursor-pointer text-center"
           onClick={() => setRoomButtons(true)}
         >
           +

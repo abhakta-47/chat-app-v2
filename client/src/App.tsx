@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { AiOutlineMenu } from "react-icons/ai";
 
 import { initUser } from "./reducers/userSlice";
 
@@ -36,10 +37,27 @@ function App() {
       </button>
     </div>
   );
+  let [showMenu, setShowMenu] = useState(true);
+  const roomColStyles = (): CSSProperties => {
+    if (window.innerWidth <= 600 && !showMenu)
+      return {
+        display: "none",
+      };
+    else return {};
+  };
+  const chatColStyles = (): CSSProperties => {
+    if (window.innerWidth <= 600 && showMenu)
+      return {
+        display: "none",
+      };
+    else return {};
+  };
   const userContent = (
     <div className="flex flex-grow min-h-0">
-      <RoomSelector />
-      <div className="flex-grow flex flex-col">
+      <div className="room-col w-28" style={roomColStyles()}>
+        <RoomSelector setShowMenu={setShowMenu} />
+      </div>
+      <div className="flex-grow flex flex-col" style={chatColStyles()}>
         <ChatArea />
         <MsgInput />
       </div>
@@ -56,6 +74,13 @@ function App() {
   return (
     <div className="App flex flex-col bg-white mx-auto my-auto">
       <header className="text-xl text-white bg-blue-600 py-3 pl-2 px-5 flex">
+        {!showMenu ? (
+          <button className="mr-1" onClick={() => setShowMenu(true)}>
+            <AiOutlineMenu></AiOutlineMenu>
+          </button>
+        ) : (
+          ""
+        )}
         React Chat App
       </header>
       {actualContent()}
