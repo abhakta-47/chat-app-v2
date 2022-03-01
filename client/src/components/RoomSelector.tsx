@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurRoom } from "../reducers/mesageSlice";
-import Modal from "./Modal";
+import { CreateRoomModal, JoinRoomModal } from "./Modal";
 
 function Room({ room }: { room: room }) {
   const dispatch = useDispatch();
@@ -28,7 +28,9 @@ function RoomSelector() {
   const rooms: room[] = useSelector(
     (state: { message: state }) => state.message.rooms
   );
-  const [modalOpen, setModal] = useState(false);
+  const [roomButtons, setRoomButtons] = useState(false);
+  const [joinModalOpen, setJoinModal] = useState(false);
+  const [createModalOpen, setCreateModal] = useState(false);
   return (
     <div className="flex flex-col items-center w-28 bg-blue-400 text-white">
       <div className="flex flex-col items-center w-full px-2">
@@ -36,13 +38,43 @@ function RoomSelector() {
           <Room key={room.id} room={room} />
         ))}
       </div>
-      <div
-        className="bg-blue-600 w-full mt-auto pl-auto cursor-pointer text-center"
-        onClick={() => setModal(true)}
-      >
-        +
-      </div>
-      <Modal open={modalOpen} setOpen={setModal} />
+      {roomButtons ? (
+        <div className="mt-auto w-full">
+          <div
+            className="bg-blue-600 w-full pl-auto cursor-pointer text-center"
+            onClick={() => {
+              setJoinModal(true);
+              setRoomButtons(false);
+            }}
+          >
+            Join
+          </div>
+          <div
+            className="bg-blue-600 w-full pl-auto cursor-pointer text-center mt-1"
+            onClick={() => {
+              setCreateModal(true);
+              setRoomButtons(false);
+            }}
+          >
+            Create
+          </div>
+          <div
+            className="bg-blue-600 w-full pl-auto cursor-pointer text-center mt-1"
+            onClick={() => setRoomButtons(false)}
+          >
+            X
+          </div>
+        </div>
+      ) : (
+        <div
+          className="bg-blue-600 w-full mt-auto pl-auto cursor-pointer text-center"
+          onClick={() => setRoomButtons(true)}
+        >
+          +
+        </div>
+      )}
+      <CreateRoomModal open={createModalOpen} setOpen={setCreateModal} />
+      <JoinRoomModal open={joinModalOpen} setOpen={setJoinModal} />
     </div>
   );
 }
